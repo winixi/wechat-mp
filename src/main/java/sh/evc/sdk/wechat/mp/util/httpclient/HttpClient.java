@@ -16,7 +16,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sh.evc.sdk.wechat.mp.domain.MediaFile;
 
 import java.io.BufferedInputStream;
 import java.io.File;

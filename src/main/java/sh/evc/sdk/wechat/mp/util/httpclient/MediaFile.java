@@ -1,4 +1,4 @@
-package sh.evc.sdk.wechat.mp.domain;
+package sh.evc.sdk.wechat.mp.util.httpclient;
 
 import java.io.BufferedInputStream;
 
