@@ -1,16 +1,23 @@
 package sh.evc.sdk.wechat.mp;
 
 import org.junit.Test;
+import sh.evc.sdk.wechat.mp.dict.Lang;
 import sh.evc.sdk.wechat.mp.dict.TicketType;
+import sh.evc.sdk.wechat.mp.domain.user.UserOpenId;
+import sh.evc.sdk.wechat.mp.request.AccessTokenGetRequest;
 import sh.evc.sdk.wechat.mp.request.TicketGetRequest;
-import sh.evc.sdk.wechat.mp.request.TokenGetRequest;
-import sh.evc.sdk.wechat.mp.request.user.FollowGetRequest;
+import sh.evc.sdk.wechat.mp.request.user.FollowerGetRequest;
 import sh.evc.sdk.wechat.mp.request.user.UserInfoGetRequest;
+import sh.evc.sdk.wechat.mp.request.user.UserInfoListGetRequest;
+import sh.evc.sdk.wechat.mp.response.AccessTokenGetResponse;
 import sh.evc.sdk.wechat.mp.response.TicketGetResponse;
-import sh.evc.sdk.wechat.mp.response.TokenGetResponse;
-import sh.evc.sdk.wechat.mp.response.user.FollowGetResponse;
+import sh.evc.sdk.wechat.mp.response.user.FollowerGetResponse;
 import sh.evc.sdk.wechat.mp.response.user.UserInfoGetResponse;
+import sh.evc.sdk.wechat.mp.response.user.UserInfoListGetResponse;
 import sh.evc.sdk.wechat.mp.util.JsonFormat;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 测试
@@ -21,22 +28,17 @@ import sh.evc.sdk.wechat.mp.util.JsonFormat;
 public class MpClientTest extends BaseTest {
 
   /**
-   * 2021-2-17 12:13
+   * 2021-2-17 13:57
    */
-  private String accessToken = "42_jMphbDs_ZIY1mx1clMJG2pw1ESnffptuvosHck5GeEBgW6WZmB2TYZiYTcYded0wCx8BZjYbWR-1L0XRDW_V4qg16PCct9gig-pN-oNzJATc7ou8sc0gqGqFLjMdutSmxEAskIw_CBhX6D52ZAPcAAAVWL";
-
-  /**
-   * 2021-2-17 12:22
-   */
-  private String ticket = "kgt8ON7yVITDhtdwci0qeSF8Dc3DikBtHOhw2t2zsioW1T-LVyqE1TavRQBNh0owO8lSy11xxxP_hzooN125vg";
+  private String accessToken = "42_xkZjexYvWL5in2obTJjL5yH_DRrrJHdsv3jOjTSjRKrdQsN0Sh5TKsGeX2kO1au1Z8TEFzpCoOa1hjnnieoA3xruTcwMz89hrM9G7xICiOJrw7ooI_bpnCTB_x5xK7raz4U5FBP552apntLeDQQgAGALYY";
 
   /**
    * 访问令牌
    */
   @Test
-  public void token() {
-    TokenGetRequest request = new TokenGetRequest(config.getAppId(), config.getAppSecret());
-    TokenGetResponse response = client.execute(request);
+  public void accessToken() {
+    AccessTokenGetRequest request = new AccessTokenGetRequest(config.getAppId(), config.getAppSecret());
+    AccessTokenGetResponse response = client.execute(request);
     JsonFormat.print(response);
   }
 
@@ -54,9 +56,9 @@ public class MpClientTest extends BaseTest {
    * 粉丝列表
    */
   @Test
-  public void follow() {
-    FollowGetRequest request = new FollowGetRequest(accessToken, "");
-    FollowGetResponse response = client.execute(request);
+  public void follower() {
+    FollowerGetRequest request = new FollowerGetRequest(accessToken, "");
+    FollowerGetResponse response = client.execute(request);
     JsonFormat.print(response);
   }
 
@@ -75,7 +77,7 @@ public class MpClientTest extends BaseTest {
    * 批量获取用户信息
    */
   @Test
-  public void userList() {
+  public void userInfoList() {
     String[] openIds = new String[]{
             "oqKgTwSiU1dqqSzzfmgyhc7x7qqY",
             "oqKgTwTUQJ2-0H-5W8Xiu0gwrP0M",
@@ -89,7 +91,13 @@ public class MpClientTest extends BaseTest {
             "oqKgTwfRJCvpB0nHU5_4earseI4I",
             "oqKgTwX2vpK3ur3rdF7FCf8s_cv4",
             "oqKgTwf6BCR1dvavbWiRymDPyOVU"};
-
+    List<UserOpenId> userOpenIdList = new ArrayList<>();
+    for (String openId : openIds) {
+      userOpenIdList.add(new UserOpenId(openId, Lang.zh_CN));
+    }
+    UserInfoListGetRequest request = new UserInfoListGetRequest(accessToken, userOpenIdList);
+    UserInfoListGetResponse response = client.execute(request);
+    JsonFormat.print(response);
   }
 
 }

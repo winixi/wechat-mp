@@ -9,7 +9,7 @@ import sh.evc.sdk.wechat.mp.response.JsonResponse;
  *
  * @author winixi
  */
-public class FollowGetResponse extends JsonResponse {
+public class FollowerGetResponse extends JsonResponse {
 
   /**
    * 关注该公众账号的总用户数

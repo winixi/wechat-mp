@@ -1,20 +1,22 @@
 package sh.evc.sdk.wechat.mp.request.user;
 
 import sh.evc.sdk.wechat.mp.dict.RequestMethod;
+import sh.evc.sdk.wechat.mp.domain.user.UserOpenId;
 import sh.evc.sdk.wechat.mp.request.ApiRequest;
-import sh.evc.sdk.wechat.mp.response.user.FollowGetResponse;
+import sh.evc.sdk.wechat.mp.response.user.UserInfoListGetResponse;
 import sh.evc.sdk.wechat.mp.util.ParamsMap;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
- * 关注用户列表
+ * 用户列表
  *
  * @author winixi
- * @date 2021/2/17 12:33 PM
+ * @date 2021/2/17 12:29 PM
  */
-public class FollowGetRequest extends ApiRequest<FollowGetResponse> {
+public class UserInfoListGetRequest extends ApiRequest<UserInfoListGetResponse> {
 
   /**
    * 访问令牌
@@ -22,46 +24,47 @@ public class FollowGetRequest extends ApiRequest<FollowGetResponse> {
   private String accessToken;
 
   /**
-   * 下一个openId
+   * 用户openid列表
    */
-  private String nextOpenId;
+  private List<UserOpenId> userOpenIdList;
 
   /**
    * 构造
    *
    * @param accessToken
-   * @param nextOpenId
+   * @param userOpenIdList
    */
-  public FollowGetRequest(String accessToken, String nextOpenId) {
+  public UserInfoListGetRequest(String accessToken, List<UserOpenId> userOpenIdList) {
     this.accessToken = accessToken;
-    this.nextOpenId = nextOpenId;
+    this.userOpenIdList = userOpenIdList;
   }
 
   @Override
   public ParamsMap getEntityParams() {
-    return null;
+    ParamsMap params = new ParamsMap();
+    params.add("user_list", userOpenIdList);
+    return params;
   }
 
   @Override
   public Map<String, String> getBasicParams() {
     Map<String, String> params = new HashMap<>();
     params.put("access_token", accessToken);
-    params.put("next_openid", nextOpenId);
     return params;
   }
 
   @Override
   public String getUri() {
-    return "/cgi-bin/user/get";
+    return "/cgi-bin/user/info/batchget";
   }
 
   @Override
   public RequestMethod getMethod() {
-    return RequestMethod.GET;
+    return RequestMethod.POST;
   }
 
   @Override
-  public Class<FollowGetResponse> getResponseClass() {
-    return FollowGetResponse.class;
+  public Class<UserInfoListGetResponse> getResponseClass() {
+    return UserInfoListGetResponse.class;
   }
 }

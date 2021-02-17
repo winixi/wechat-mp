@@ -2,7 +2,7 @@ package sh.evc.sdk.wechat.mp.request;
 
 import sh.evc.sdk.wechat.mp.dict.GrantType;
 import sh.evc.sdk.wechat.mp.dict.RequestMethod;
-import sh.evc.sdk.wechat.mp.response.TokenGetResponse;
+import sh.evc.sdk.wechat.mp.response.AccessTokenGetResponse;
 import sh.evc.sdk.wechat.mp.util.ParamsMap;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import java.util.Map;
  * @author winixi
  * @date 2021/2/16 1:44 PM
  */
-public class TokenGetRequest extends ApiRequest<TokenGetResponse> {
+public class AccessTokenGetRequest extends ApiRequest<AccessTokenGetResponse> {
 
   /**
    * 授权方式
@@ -37,7 +37,7 @@ public class TokenGetRequest extends ApiRequest<TokenGetResponse> {
    * @param appId
    * @param secret
    */
-  public TokenGetRequest(String appId, String secret) {
+  public AccessTokenGetRequest(String appId, String secret) {
     this.appId = appId;
     this.secret = secret;
   }
@@ -67,7 +67,7 @@ public class TokenGetRequest extends ApiRequest<TokenGetResponse> {
   }
 
   @Override
-  public Class<TokenGetResponse> getResponseClass() {
-    return TokenGetResponse.class;
+  public Class<AccessTokenGetResponse> getResponseClass() {
+    return AccessTokenGetResponse.class;
   }
 }

@@ -46,7 +46,7 @@ public class MiniappClient {
   public <T extends ApiResponse> T execute(ApiRequest<T> request) {
     RequestMethod method = request.getMethod();
     Map<String, String> basicParams = request.getBasicParams();
-    String url = Const.SERVER_URL + request.getUri() + getUrlParams(basicParams);
+    String url = Const.SERVER_URL + request.getUri();
     String entityData = getEntityData(request.getEntityParams());
     Date requestTime = new Date();
     File file = request.getFile();
@@ -83,28 +83,6 @@ public class MiniappClient {
       return "";
     }
     return SerializeUtil.beanToJson(params);
-  }
-
-  /**
-   * 整理url参数
-   *
-   * @param params
-   * @return
-   */
-  private String getUrlParams(Map<String, String> params) {
-    if (params == null || params.isEmpty()) {
-      return "";
-    }
-    StringBuilder sb = new StringBuilder("?");
-    int i = 0;
-    for (String key : params.keySet()) {
-      if (i > 0) {
-        sb.append("&");
-      }
-      sb.append(key).append("=").append(params.get(key));
-      i++;
-    }
-    return sb.toString();
   }
 
   /**

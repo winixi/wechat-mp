@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author winixi
  */
-public class UserListGetResponse extends JsonResponse {
+public class UserInfoListGetResponse extends JsonResponse {
 
   /**
    * 用户信息
