@@ -1,25 +1,20 @@
-package sh.evc.sdk.wechat.mp.request;
+package sh.evc.sdk.wechat.mp.request.user;
 
 import sh.evc.sdk.wechat.mp.dict.RequestMethod;
-import sh.evc.sdk.wechat.mp.dict.TicketType;
-import sh.evc.sdk.wechat.mp.response.TicketGetResponse;
+import sh.evc.sdk.wechat.mp.request.ApiRequest;
+import sh.evc.sdk.wechat.mp.response.user.FollowGetResponse;
 import sh.evc.sdk.wechat.mp.util.ParamsMap;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * ticket get
+ * 关注用户列表
  *
  * @author winixi
- * @date 2021/2/16 1:43 PM
+ * @date 2021/2/17 12:33 PM
  */
-public class TicketGetRequest extends ApiRequest<TicketGetResponse> {
-
-  /**
-   * 临时票据类型
-   */
-  private TicketType ticketType;
+public class FollowGetRequest extends ApiRequest<FollowGetResponse> {
 
   /**
    * 访问令牌
@@ -27,14 +22,19 @@ public class TicketGetRequest extends ApiRequest<TicketGetResponse> {
   private String accessToken;
 
   /**
+   * 下一个openId
+   */
+  private String nextOpenId;
+
+  /**
    * 构造
    *
-   * @param ticketType
    * @param accessToken
+   * @param nextOpenId
    */
-  public TicketGetRequest(TicketType ticketType, String accessToken) {
-    this.ticketType = ticketType;
+  public FollowGetRequest(String accessToken, String nextOpenId) {
     this.accessToken = accessToken;
+    this.nextOpenId = nextOpenId;
   }
 
   @Override
@@ -46,13 +46,13 @@ public class TicketGetRequest extends ApiRequest<TicketGetResponse> {
   public Map<String, String> getBasicParams() {
     Map<String, String> params = new HashMap<>();
     params.put("access_token", accessToken);
-    params.put("type", ticketType.getValue());
+    params.put("next_openid", nextOpenId);
     return params;
   }
 
   @Override
   public String getUri() {
-    return "/cgi-bin/ticket/getticket";
+    return "/cgi-bin/user/get";
   }
 
   @Override
@@ -61,7 +61,7 @@ public class TicketGetRequest extends ApiRequest<TicketGetResponse> {
   }
 
   @Override
-  public Class<TicketGetResponse> getResponseClass() {
-    return TicketGetResponse.class;
+  public Class<FollowGetResponse> getResponseClass() {
+    return FollowGetResponse.class;
   }
 }

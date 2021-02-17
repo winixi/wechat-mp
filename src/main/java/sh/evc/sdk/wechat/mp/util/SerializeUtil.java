@@ -7,7 +7,7 @@ import sh.evc.sdk.wechat.mp.util.serialize.SerializeDelegate;
 /**
  * 序列号单元
  *
- * @author vioao
+ * @author winixi
  */
 public class SerializeUtil {
 

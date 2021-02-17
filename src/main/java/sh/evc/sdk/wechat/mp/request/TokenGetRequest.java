@@ -1,9 +1,11 @@
 package sh.evc.sdk.wechat.mp.request;
 
+import sh.evc.sdk.wechat.mp.dict.GrantType;
 import sh.evc.sdk.wechat.mp.dict.RequestMethod;
 import sh.evc.sdk.wechat.mp.response.TokenGetResponse;
 import sh.evc.sdk.wechat.mp.util.ParamsMap;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -14,6 +16,32 @@ import java.util.Map;
  */
 public class TokenGetRequest extends ApiRequest<TokenGetResponse> {
 
+  /**
+   * 授权方式
+   */
+  private GrantType grantType = GrantType.CLIENT_CREDENTIAL;
+
+  /**
+   * appId
+   */
+  private String appId;
+
+  /**
+   * secret
+   */
+  private String secret;
+
+  /**
+   * 构造
+   *
+   * @param appId
+   * @param secret
+   */
+  public TokenGetRequest(String appId, String secret) {
+    this.appId = appId;
+    this.secret = secret;
+  }
+
   @Override
   public ParamsMap getEntityParams() {
     return null;
@@ -21,21 +49,25 @@ public class TokenGetRequest extends ApiRequest<TokenGetResponse> {
 
   @Override
   public Map<String, String> getBasicParams() {
-    return null;
+    Map<String, String> params = new HashMap<>();
+    params.put("grant_type", grantType.getValue());
+    params.put("appid", appId);
+    params.put("secret", secret);
+    return params;
   }
 
   @Override
   public String getUri() {
-    return null;
+    return "/cgi-bin/token";
   }
 
   @Override
   public RequestMethod getMethod() {
-    return null;
+    return RequestMethod.GET;
   }
 
   @Override
   public Class<TokenGetResponse> getResponseClass() {
-    return null;
+    return TokenGetResponse.class;
   }
 }

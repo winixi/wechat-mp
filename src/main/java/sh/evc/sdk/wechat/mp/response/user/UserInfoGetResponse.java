@@ -1,7 +1,8 @@
-package sh.evc.sdk.wechat.mp.response;
+package sh.evc.sdk.wechat.mp.response.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import sh.evc.sdk.wechat.mp.dict.Lang;
+import sh.evc.sdk.wechat.mp.response.JsonResponse;
 
 import java.util.List;
 
