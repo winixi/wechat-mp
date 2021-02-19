@@ -1,9 +1,17 @@
 package sh.evc.sdk.wechat.mp;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import sh.evc.sdk.wechat.mp.client.MpClient;
+import sh.evc.sdk.wechat.mp.config.MpConfig;
+import sh.evc.sdk.wechat.mp.config.MpConfigTest;
 import sh.evc.sdk.wechat.mp.dict.Lang;
 import sh.evc.sdk.wechat.mp.dict.TicketType;
 import sh.evc.sdk.wechat.mp.domain.user.UserOpenId;
+import sh.evc.sdk.wechat.mp.handler.ResponseHandler;
+import sh.evc.sdk.wechat.mp.handler.ResponseHandlerTest;
 import sh.evc.sdk.wechat.mp.request.AccessTokenGetRequest;
 import sh.evc.sdk.wechat.mp.request.TicketGetRequest;
 import sh.evc.sdk.wechat.mp.request.user.FollowerGetRequest;
@@ -25,7 +33,17 @@ import java.util.List;
  * @author winixi
  * @date 2021/2/12 3:20 PM
  */
-public class MpClientTest extends BaseTest {
+public class MpClientTest {
+
+  public final static Logger log = LoggerFactory.getLogger(MpClientTest.class);
+  public MpClient client;
+  public MpConfig config = new MpConfigTest();
+  public ResponseHandler handler = new ResponseHandlerTest();
+
+  @Before
+  public void before() {
+    client = new MpClient(config, handler);
+  }
 
   /**
    * 2021-2-17 13:57

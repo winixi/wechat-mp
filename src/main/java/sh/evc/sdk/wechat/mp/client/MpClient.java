@@ -3,7 +3,7 @@ package sh.evc.sdk.wechat.mp.client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sh.evc.sdk.wechat.mp.Const;
-import sh.evc.sdk.wechat.mp.config.MiniappConfig;
+import sh.evc.sdk.wechat.mp.config.MpConfig;
 import sh.evc.sdk.wechat.mp.dict.RequestMethod;
 import sh.evc.sdk.wechat.mp.dict.ResponseType;
 import sh.evc.sdk.wechat.mp.handler.ResponseHandler;
@@ -24,16 +24,20 @@ import java.util.Map;
  * @author winixi
  * @date 2021/2/9 2:00 PM
  */
-public class MiniappClient {
+public class MpClient {
 
-  private final static Logger logger = LoggerFactory.getLogger(MiniappClient.class);
-  private final MiniappConfig config;
+  private final static Logger logger = LoggerFactory.getLogger(MpClient.class);
+  private final MpConfig config;
   private final ResponseHandler handler;
   private final HttpClient client = new HttpClient();
 
-  public MiniappClient(MiniappConfig config, ResponseHandler handler) {
+  public MpClient(MpConfig config, ResponseHandler handler) {
     this.config = config;
     this.handler = handler;
+  }
+
+  public MpConfig getConfig() {
+    return config;
   }
 
   /**

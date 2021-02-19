@@ -14,7 +14,7 @@ public enum TicketType {
   JSAPI("jsapi"),
 
   /**
-   *
+   * 小程序
    */
   WX_CARD("wx_card");
 

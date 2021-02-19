@@ -31,4 +31,13 @@ public enum SnsScope {
   public void setValue(String value) {
     this.value = value;
   }
+
+  public static SnsScope getByValue(String value) {
+    for (SnsScope scope : SnsScope.values()) {
+      if (scope.getValue().equals(value)) {
+        return scope;
+      }
+    }
+    return null;
+  }
 }

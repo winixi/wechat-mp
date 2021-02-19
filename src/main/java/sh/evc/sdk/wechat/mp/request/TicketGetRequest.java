@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * ticket get
+ * 页面ticket，用于jssdk
  *
  * @author winixi
  * @date 2021/2/16 1:43 PM

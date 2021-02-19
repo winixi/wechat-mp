@@ -6,7 +6,7 @@ package sh.evc.sdk.wechat.mp.config;
  * @author winixi
  * @date 2019-02-16 22:49
  */
-public interface MiniappConfig {
+public interface MpConfig {
 
   /**
    * 获取小程序应用编号

@@ -1,6 +1,7 @@
 package sh.evc.sdk.wechat.mp.response.oauth2;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import sh.evc.sdk.wechat.mp.dict.SnsScope;
 import sh.evc.sdk.wechat.mp.response.JsonResponse;
 
 /**
@@ -33,7 +34,7 @@ public class SnsTokenGetResponse extends JsonResponse {
   private String openId;
 
   /**
-   * 用户授权的作用域，使用逗号（,）分隔
+   * 用户授权的作用域
    */
   private String scope;
 
@@ -69,8 +70,8 @@ public class SnsTokenGetResponse extends JsonResponse {
     this.openId = openId;
   }
 
-  public String getScope() {
-    return scope;
+  public SnsScope getScope() {
+    return SnsScope.getByValue(scope);
   }
 
   public void setScope(String scope) {
