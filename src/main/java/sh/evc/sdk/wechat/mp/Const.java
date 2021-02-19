@@ -7,6 +7,6 @@ package sh.evc.sdk.wechat.mp;
  */
 public class Const {
 
-  public final static String SERVER_URL = "https://api.weixin.qq.com";
-
+  public final static String API_URL = "https://api.weixin.qq.com";
+  public final static String OPEN_URL = "https://open.weixin.qq.com";
 }

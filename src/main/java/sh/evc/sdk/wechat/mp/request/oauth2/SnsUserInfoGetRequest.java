@@ -1,4 +1,4 @@
-package sh.evc.sdk.wechat.mp.request.user;
+package sh.evc.sdk.wechat.mp.request.oauth2;
 
 import sh.evc.sdk.wechat.mp.dict.Lang;
 import sh.evc.sdk.wechat.mp.dict.RequestMethod;
@@ -10,12 +10,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 用户信息
+ * 用授权的方式获取用户信息
  *
  * @author winixi
- * @date 2021/2/16 1:54 PM
+ * @date 2021/2/19 10:43 AM
  */
-public class UserInfoGetRequest extends ApiRequest<UserInfoGetResponse> {
+public class SnsUserInfoGetRequest extends ApiRequest<UserInfoGetResponse> {
+
+  /**
+   * 页面授权令牌
+   */
+  private String accessToken;
 
   /**
    * 唯一id
@@ -23,29 +28,9 @@ public class UserInfoGetRequest extends ApiRequest<UserInfoGetResponse> {
   private String openId;
 
   /**
-   * 访问令牌
-   */
-  private String accessToken;
-
-  /**
    * 语言
    */
   private Lang lang = Lang.zh_CN;
-
-  /**
-   * 构造
-   *
-   * @param openId
-   * @param accessToken
-   */
-  public UserInfoGetRequest(String openId, String accessToken) {
-    this.openId = openId;
-    this.accessToken = accessToken;
-  }
-
-  public void setLang(Lang lang) {
-    this.lang = lang;
-  }
 
   @Override
   public ParamsMap getEntityParams() {
@@ -57,13 +42,13 @@ public class UserInfoGetRequest extends ApiRequest<UserInfoGetResponse> {
     Map<String, String> params = new HashMap<>();
     params.put("access_token", accessToken);
     params.put("openid", openId);
-    params.put("lang", lang.getValue());
+    params.put("lang", lang.name());
     return params;
   }
 
   @Override
   public String getUri() {
-    return "/cgi-bin/user/info";
+    return "/sns/getUserInfo";
   }
 
   @Override
