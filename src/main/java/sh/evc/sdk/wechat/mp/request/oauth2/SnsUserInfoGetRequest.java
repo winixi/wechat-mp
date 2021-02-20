@@ -3,7 +3,7 @@ package sh.evc.sdk.wechat.mp.request.oauth2;
 import sh.evc.sdk.wechat.mp.dict.Lang;
 import sh.evc.sdk.wechat.mp.dict.RequestMethod;
 import sh.evc.sdk.wechat.mp.request.ApiRequest;
-import sh.evc.sdk.wechat.mp.response.user.UserInfoGetResponse;
+import sh.evc.sdk.wechat.mp.response.oauth2.SnsUserInfoGetResponse;
 import sh.evc.sdk.wechat.mp.util.ParamsMap;
 
 import java.util.HashMap;
@@ -15,7 +15,7 @@ import java.util.Map;
  * @author winixi
  * @date 2021/2/19 10:43 AM
  */
-public class SnsUserInfoGetRequest extends ApiRequest<UserInfoGetResponse> {
+public class SnsUserInfoGetRequest extends ApiRequest<SnsUserInfoGetResponse> {
 
   /**
    * 页面授权令牌
@@ -57,7 +57,7 @@ public class SnsUserInfoGetRequest extends ApiRequest<UserInfoGetResponse> {
   }
 
   @Override
-  public Class<UserInfoGetResponse> getResponseClass() {
-    return UserInfoGetResponse.class;
+  public Class<SnsUserInfoGetResponse> getResponseClass() {
+    return SnsUserInfoGetResponse.class;
   }
 }
