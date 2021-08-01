@@ -56,12 +56,4 @@ public class MiniProgramPage {
     this.thumbMediaId = thumbMediaId;
   }
 
-  @Override
-  public String toString() {
-    return "CustomMiniappPage{" +
-            "title='" + title + '\'' +
-            ", pagePath='" + pagePath + '\'' +
-            ", thumbMediaId='" + thumbMediaId + '\'' +
-            '}';
-  }
 }

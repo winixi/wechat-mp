@@ -5,8 +5,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sh.evc.sdk.wechat.mp.client.MpClient;
-import sh.evc.sdk.wechat.mp.config.MpConfig;
-import sh.evc.sdk.wechat.mp.config.MpConfigTest;
 import sh.evc.sdk.wechat.mp.dict.ActionType;
 import sh.evc.sdk.wechat.mp.dict.ActivityTargetState;
 import sh.evc.sdk.wechat.mp.dict.Lang;
@@ -31,8 +29,13 @@ import sh.evc.sdk.wechat.mp.response.user.UserInfoListGetResponse;
 import sh.evc.sdk.wechat.mp.util.JsonFormat;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * 测试
@@ -42,13 +45,29 @@ import java.util.List;
  */
 public class MpClientTest {
 
-	public final static Logger log = LoggerFactory.getLogger(MpClientTest.class);
+	public final static Logger logger = LoggerFactory.getLogger(MpClientTest.class);
 	public MpClient client;
-	public MpConfig config = new MpConfigTest();
+	public String appId;
+	public String appSecret;
+	public String token;
+	public String encodingAesKey;
 	public ResponseHandler handler = new ResponseHandlerTest();
 
 	@Before
 	public void before() {
+		InputStream in = this.getClass().getResourceAsStream("/config.properties");
+		try {
+			InputStreamReader inputStreamReader = new InputStreamReader(in, StandardCharsets.UTF_8);
+			Properties props = new Properties();
+			props.load(inputStreamReader);
+			appId = props.getProperty("appId");
+			appSecret = props.getProperty("appSecret");
+			token = props.getProperty("token");
+			encodingAesKey = props.getProperty("encodingAesKey");
+
+		} catch (IOException e) {
+			logger.error("读取配置错误", e);
+		}
 		client = new MpClient(handler);
 	}
 
@@ -62,7 +81,7 @@ public class MpClientTest {
 	 */
 	@Test
 	public void accessToken() {
-		AccessTokenGetRequest request = new AccessTokenGetRequest(config.getAppId(), config.getAppSecret());
+		AccessTokenGetRequest request = new AccessTokenGetRequest(appId, appSecret);
 		AccessTokenGetResponse response = client.execute(request);
 		JsonFormat.print(response);
 	}

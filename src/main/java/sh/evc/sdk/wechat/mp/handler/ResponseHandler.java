@@ -1,6 +1,6 @@
 package sh.evc.sdk.wechat.mp.handler;
 
-import sh.evc.sdk.wechat.mp.response.ApiResponse;
+import sh.evc.sdk.wechat.mp.response.JsonResponse;
 
 /**
  * response handler
@@ -10,10 +10,10 @@ import sh.evc.sdk.wechat.mp.response.ApiResponse;
  */
 public interface ResponseHandler {
 
-  /**
-   * 用来做日志或数据记录
-   *
-   * @param response
-   */
-  void append(ApiResponse response);
+	/**
+	 * 用来做日志或数据记录
+	 *
+	 * @param response
+	 */
+	void append(JsonResponse response);
 }

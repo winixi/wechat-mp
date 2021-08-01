@@ -7,7 +7,6 @@ import sh.evc.sdk.wechat.mp.dict.RequestMethod;
 import sh.evc.sdk.wechat.mp.dict.ResponseType;
 import sh.evc.sdk.wechat.mp.handler.ResponseHandler;
 import sh.evc.sdk.wechat.mp.request.ApiRequest;
-import sh.evc.sdk.wechat.mp.response.ApiResponse;
 import sh.evc.sdk.wechat.mp.response.JsonResponse;
 import sh.evc.sdk.wechat.mp.util.ParamsMap;
 import sh.evc.sdk.wechat.mp.util.SerializeUtil;
@@ -40,10 +39,10 @@ public class MpClient {
 	 * @param <T>
 	 * @return
 	 */
-	public <T extends ApiResponse> T execute(ApiRequest<T> request) {
+	public <T extends JsonResponse> T execute(ApiRequest<T> request) {
 		RequestMethod method = request.getMethod();
 		Map<String, String> basicParams = request.getBasicParams();
-		String url = Const.API_URL + request.getUri();
+		String url = Const.API_URL + request.getUri() + getUrlParams(basicParams);
 		String entityData = getEntityData(request.getEntityParams());
 		Date requestTime = new Date();
 		File file = request.getFile();
@@ -51,8 +50,13 @@ public class MpClient {
 		T response;
 		if (responseType == ResponseType.BUFFER) {
 			byte[] buffer = requestBuffer(method, url, basicParams, entityData);
-			response = (T) new JsonResponse();
-			response.setResponseBuffer(buffer);
+			try {
+				response = request.getResponseClass().newInstance();
+				response.setResponseBuffer(buffer);
+			} catch (Exception e) {
+				logger.error("反射Buffer接口错误");
+				return null;
+			}
 		} else {
 			String res = requestString(method, url, basicParams, entityData, file);
 			response = SerializeUtil.jsonToBean(res, request.getResponseClass());
@@ -80,6 +84,28 @@ public class MpClient {
 			return "";
 		}
 		return SerializeUtil.beanToJson(params);
+	}
+
+	/**
+	 * 整理url参数
+	 *
+	 * @param params
+	 * @return
+	 */
+	private String getUrlParams(Map<String, String> params) {
+		if (params == null || params.isEmpty()) {
+			return "";
+		}
+		StringBuilder sb = new StringBuilder("?");
+		int i = 0;
+		for (String key : params.keySet()) {
+			if (i > 0) {
+				sb.append("&");
+			}
+			sb.append(key).append("=").append(params.get(key));
+			i++;
+		}
+		return sb.toString();
 	}
 
 	/**
