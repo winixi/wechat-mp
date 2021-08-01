@@ -1,20 +1,20 @@
 package sh.evc.sdk.wechat.mp.response;
 
 /**
- * 获取小程序全局唯一后台接口调用凭据（access_token）
+ * 令牌返回
  *
  * @author winixi
- * @date 2021/2/10 6:53 PM
+ * @date 2018/11/26 10:44 PM
  */
-public class AccessTokenGetResponse extends JsonResponse {
+public class TokenResponse extends ApiResponse {
 
   /**
-   * 获取到的凭证
+   * 访问令牌
    */
   private String accessToken;
 
   /**
-   * 凭证有效时间，单位：秒。目前是7200秒之内的值。
+   * 过期
    */
   private Integer expiresIn;
 
@@ -36,7 +36,7 @@ public class AccessTokenGetResponse extends JsonResponse {
 
   @Override
   public String toString() {
-    return "AccessTokenGetResponse{" +
+    return "TokenResponse{" +
             "accessToken='" + accessToken + '\'' +
             ", expiresIn=" + expiresIn +
             "} " + super.toString();

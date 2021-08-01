@@ -14,7 +14,7 @@ public class JsonResponse extends ApiResponse {
    * 错误码
    */
   @JsonProperty("errcode")
-  private Integer errCode;
+  private Integer errCode = 0;
 
   /**
    * 错误消息
@@ -36,6 +36,13 @@ public class JsonResponse extends ApiResponse {
 
   public void setErrMsg(String errMsg) {
     this.errMsg = errMsg;
+  }
+
+  public boolean isSuccess() {
+    if (errCode == null || errCode == 0) {
+      return true;
+    }
+    return false;
   }
 
   @Override

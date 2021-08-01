@@ -2,19 +2,19 @@ package sh.evc.sdk.wechat.mp.request;
 
 import sh.evc.sdk.wechat.mp.dict.GrantType;
 import sh.evc.sdk.wechat.mp.dict.RequestMethod;
-import sh.evc.sdk.wechat.mp.response.AccessTokenGetResponse;
+import sh.evc.sdk.wechat.mp.response.Code2SessionResponse;
 import sh.evc.sdk.wechat.mp.util.ParamsMap;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 获取小程序全局唯一后台接口调用凭据（access_token）
+ * 登录凭证校验
  *
  * @author winixi
- * @date 2021/2/10 6:55 PM
+ * @date 2021/2/10 6:33 PM
  */
-public class AccessTokenGetRequest extends ApiRequest<AccessTokenGetResponse> {
+public class Code2SessionRequest extends ApiRequest<Code2SessionResponse> {
 
   /**
    * 小程序appId
@@ -27,19 +27,26 @@ public class AccessTokenGetRequest extends ApiRequest<AccessTokenGetResponse> {
   private String secret;
 
   /**
+   * 登录时获取的 code
+   */
+  private String jsCode;
+
+  /**
    * 授权类型，此处只需填写 authorization_code
    */
-  private GrantType grantType = GrantType.CLIENT_CREDENTIAL;
+  private GrantType grantType = GrantType.AUTHORIZATION_CODE;
 
   /**
    * 构造
    *
    * @param appId
    * @param secret
+   * @param jsCode
    */
-  public AccessTokenGetRequest(String appId, String secret) {
+  public Code2SessionRequest(String appId, String secret, String jsCode) {
     this.appId = appId;
     this.secret = secret;
+    this.jsCode = jsCode;
   }
 
   @Override
@@ -52,13 +59,14 @@ public class AccessTokenGetRequest extends ApiRequest<AccessTokenGetResponse> {
     Map<String, String> params = new HashMap<>();
     params.put("appid", appId);
     params.put("secret", secret);
+    params.put("js_code", jsCode);
     params.put("grant_type", grantType.getValue());
     return params;
   }
 
   @Override
   public String getUri() {
-    return "/cgi-bin/token";
+    return "/sns/jscode2session";
   }
 
   @Override
@@ -67,7 +75,7 @@ public class AccessTokenGetRequest extends ApiRequest<AccessTokenGetResponse> {
   }
 
   @Override
-  public Class<AccessTokenGetResponse> getResponseClass() {
-    return AccessTokenGetResponse.class;
+  public Class<Code2SessionResponse> getResponseClass() {
+    return Code2SessionResponse.class;
   }
 }

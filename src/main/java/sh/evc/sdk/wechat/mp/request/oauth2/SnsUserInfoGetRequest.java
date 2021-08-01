@@ -32,6 +32,11 @@ public class SnsUserInfoGetRequest extends ApiRequest<SnsUserInfoGetResponse> {
    */
   private Lang lang = Lang.zh_CN;
 
+  public SnsUserInfoGetRequest(String accessToken, String openId) {
+    this.accessToken = accessToken;
+    this.openId = openId;
+  }
+
   @Override
   public ParamsMap getEntityParams() {
     return null;
